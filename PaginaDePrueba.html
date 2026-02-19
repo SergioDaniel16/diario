@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Workshop 🚀</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #111;
+      --border: #2a2a2a;
+      --green: #00ff88;
+      --yellow: #ffe066;
+      --muted: #666;
+      --text: #e8e8e8;
+
+      /* 🎯 ESTE ES EL COLOR QUE VAN A CAMBIAR */
+      --btn-color: #ff4d6d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .wrapper {
+      max-width: 720px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--green);
+      border: 1px solid var(--green);
+      padding: 4px 14px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    h1 span { color: var(--green); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    /* MISSION BOX */
+    .mission {
+      background: #0a1a12;
+      border: 1px solid var(--green);
+      border-radius: 6px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+
+    .mission-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .mission h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .mission p {
+      font-size: 14px;
+      color: #aaa;
+      line-height: 1.7;
+    }
+
+    .mission p strong { color: var(--green); }
+
+    /* STEPS CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .card-bar {
+      background: #1a1a1a;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red    { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green  { background: #28c840; }
+
+    .card-title {
+      margin-left: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .card-body { padding: 28px 32px; }
+
+    .steps {
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      counter-increment: step;
+      background: var(--green);
+      color: #000;
+      font-weight: 700;
+      font-size: 12px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 3px;
+    }
+    .step-num::before { content: counter(step); }
+
+    .step-content {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #bbb;
+      padding-top: 4px;
+    }
+
+    .step-content strong { color: #fff; }
+
+    code {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 3px;
+      padding: 1px 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--yellow);
+    }
+
+    /* DEMO SECTION */
+    .demo {
+      text-align: center;
+      padding: 40px 32px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface);
+    }
+
+    .demo-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    /* 🎯 EL BOTÓN QUE VAN A CAMBIAR */
+    .cta-btn {
+      background: var(--btn-color);
+      color: #fff;
+      border: none;
+      padding: 16px 44px;
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(255,77,109,0.35);
+    }
+
+    .btn-hint {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .btn-hint span { color: var(--yellow); }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="tag">⚡ GitHub Workshop</div>
+      <h1>Tu primer <span>Pull Request</span></h1>
+      <p class="subtitle">Aprende el flujo básico de Git haciendo un cambio real</p>
+    </div>
+
+    <!-- MISSION -->
+    <div class="mission">
+      <div class="mission-label">🎯 Tu misión</div>
+      <h2>Cambia el color del botón</h2>
+      <p>
+        Abre el archivo <strong>index.html</strong>, busca la variable
+        <strong><code>--btn-color</code></strong> y cámbiala por tu color favorito.
+        Luego sigue los pasos abajo para subir tu cambio con Git.
+      </p>
+    </div>
+
+    <!-- STEPS -->
+    <div class="card">
+      <div class="card-bar">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+        <span class="card-title">terminal — pasos a seguir</span>
+      </div>
+      <div class="card-body">
+        <div class="steps">
+
+          <div class="step">
+            <div class="step-num"></div>
+            <div class="step-content">
+              <strong>Fork del repositorio</strong><br>
+              Haz clic en <strong>Fork</strong> en GitHub para crear tu propia copia del proyecto.
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num"></div>
+            <div class="step-content">
+              <strong>Clona tu fork</strong><br>
+              <code>git clone https://github.com/TU_USUARIO/REPO.git</code>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num"></div>
+            <div class="step-content">
+              <strong>Crea una rama nueva</strong><br>
+              <code>git checkout -b cambio-color-boton</code>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num"></div>
+            <div class="step-content">
+              <strong>Edita el archivo</strong><br>
+              En <code>index.html</code>, busca <code>--btn-color</code> y cambia el valor hex por el color que quieras. ¡Guarda el archivo!
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num"></div>
+            <div class="step-content">
+              <strong>Haz commit de tu cambio</strong><br>
+              <code>git add index.html</code><br>
+              <code>git commit -m "feat: cambio color del boton"</code>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num"></div>
+            <div class="step-content">
+              <strong>Sube tu rama</strong><br>
+              <code>git push origin cambio-color-boton</code>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num"></div>
+            <div class="step-content">
+              <strong>Abre un Pull Request</strong><br>
+              Ve a GitHub y haz clic en <strong>Compare & pull request</strong>. ¡Listo!
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO -->
+    <div class="demo">
+      <div class="demo-label">👇 Este es el botón que vas a cambiar</div>
+      <button class="cta-btn">¡Haz clic aquí!</button>
+      <p class="btn-hint"><span>↑</span> Busca <code>--btn-color</code> en el CSS y cambia el color</p>
+    </div>
+
+    <div class="footer">
+      Hecho con ❤️ para el workshop · Cualquier color es válido 🎨
+    </div>
+
+  </div>
+</body>
+</html>
